@@ -12,10 +12,16 @@ const servict = axios.create({
 // 添加请求拦截器,把aixos改成你自定义的实列对象 
 servict.interceptors.request.use(function (config) {
   //往header头自动添加token
-  const cookie = useCookies()
+  const cookie:any = useCookies()
   //拿到key值
   const token = cookie.get("admin-token")
+  //判断toke值是否为空
+  if(token){
+    //往头传递
+    config.headers["token"] = token
+  }
     // 在发送请求之前做些什么
+
     return config;
   }, function (error) {
     // 对请求错误做些什么

@@ -39,14 +39,15 @@
 </template>
 <script lang="ts" setup>
 //引入useCookies 用来储存登录的用户名和密码
-   import { useCookies } from '@vueuse/integrations/useCookies'
+import { useCookies } from '@vueuse/integrations/useCookies'
 //表单插件引入
 import { ref,reactive } from 'vue'
-import type { FormRules } from 'element-plus'
+// import type { FormRules } from 'element-plus'
+import FormRules from "element-plus"
 //引入刚刚做好的登录请求
-import { login } from '@/api/manager'
+import { login} from '@/api/manager'
 //引入点击消息报错弹出提示框
-import { ElMessage } from 'element-plus'
+import  ElMessage  from 'element-plus'
 //引入vue-rotuter里面的一个方法进行跳转
 import { useRouter } from 'vue-router'
  //拿到这个然后调用pust方法
@@ -102,7 +103,7 @@ const onSubmit = () => {
       //请求成功的结果用res打印出来
       // console.log(res.data.data);
       //因为已经在aixo配置了data所以说打印就可以去掉data
-      console.log(res.data.data)
+      // console.log(res.data.data)
       //提示成功
        ElMessage({
     showClose: true,
@@ -114,8 +115,10 @@ const onSubmit = () => {
         //并且用cookie接收
    const cookie = useCookies();  
    //因为配置了拦截器所以说可以省略后面的data
-   cookie.set("admin.token",res.data.data.token)
+   cookie.set("admin-token",res.data.data.token)
   //这里有bug会报错所以说先不省略data
+  //获取用户相关信息
+  
   // cookie.set("admin-token",res.token)
       //跳转到后台首页
     router.push("/")     
